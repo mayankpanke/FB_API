@@ -51,7 +51,7 @@ angular.module('FBDataFetcherApp',[])
               defer.resolve(user)
             });
           }
-         });
+         },{scope:'user_managed_groups'});
         return defer.promise;
        }
       
