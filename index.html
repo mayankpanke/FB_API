@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<meta charset="ISO-8859-1">
+<title>Test</title>
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="app.js"></script>
+</head>
+	<body ng-app='FBDataFetcherApp' ng-controller='DefaultCntrl'>
+
+	<div class="jumbotron text-center">
+	<h3> Facebook Group information </h3>
+	</div>
+	<P> <button ng-click="FBLogin()">Login to Facebook</button>
+	<p>
+	 Hi {{user_name}} !!
+	<p>Select group
+	<select name='groupSelect' ng-model='selectedGrp'>
+		<option ng-repeat='grp in groups' value = {{grp.id}}>{{grp.name}} </option>
+	</select>
+
+	<p>
+	select post range <input type = "date" ng-model="fromDate" /> to <input type = "date" ng-model="toDate" />
+	<p>
+	<button ng-click="selectedItemChanged()"> Get Information </button>
+	<p>
+	<table class="table table-bordered table-striped">
+	  <thead>
+	   <tr>
+        <td>
+         <a href="#" ng-click="sortType = 'message'; sortReverse = !sortReverse">
+            Post
+            <span ng-show="sortType == 'message' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'message' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+        </td>
+        <td>
+           <a href="#" ng-click="sortType = 'likesToPost'; sortReverse = !sortReverse">
+          Like
+          <span ng-show="sortType == 'likesToPost' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'likesToPost' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+        </td>
+        <td>
+        <a href="#" ng-click="sortType = 'commentsToPost'; sortReverse = !sortReverse">
+          Comments
+          <span ng-show="sortType == 'commentsToPost' && !sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'commentsToPost' && sortReverse" class="fa fa-caret-up"></span>
+          </a>
+        </td>
+        <td>
+        	Link
+        </td>
+       </tr>
+	  </thead>
+	  <tr ng-repeat="x in groupInfos | orderBy:sortType:sortReverse">
+	    <td>{{ x.message }}</td>
+	    <td>{{ x.likes }}</td>
+	    <td>{{ x.commentsToPost }}</td>
+	    <td> <a target = "_blank" href = "{{x.link}}"> Open </a> </td>
+	  </tr>
+</table>
+	</body>
+</html>
